@@ -1,0 +1,99 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <iomanip>
+#include <vector>
+#include <array>
+using namespace std;
+
+
+double promptInput(int studentNo);
+char getLetterGrade(double percentScore); 
+
+
+int main() {
+
+
+    //to hold the sum scores of all students, initialized to 0
+    double sum = 0;
+
+
+
+    int studentNum;
+    double studentScore[100];
+    char studentLetterGrade[100];
+
+
+    cout << "Please enter number of students (1-100): ";
+    cin >> studentNum;
+
+    for (int i = 0; i < studentNum ; i++) {
+        studentScore[i] = promptInput(i+1);
+        sum = sum + studentScore[i];
+    }
+
+    for (int i = 0; i < studentNum ; i++) {
+        studentLetterGrade[i] = getLetterGrade(studentScore[i]*2/3);
+    }
+
+    //output the results
+    cout << endl << endl << endl << endl << endl;
+    cout << "Work submitted by Jafet Gomez\n";
+    cout << "*****************************************" <<endl;
+    cout << left;
+    cout << setprecision(3);
+    cout << setw(15) << "Student" << setw(8) << "Score" << setw(12) << "Percentage"  << "Grade\n";
+    cout << "*****************************************" <<endl;
+
+    for (int i = 0; i < studentNum ; i++) {
+        cout << setw(15) << i+1 << setw(8) << studentScore[i] << setw(12) << studentScore[i]*2/3 << studentLetterGrade[i] << endl;
+    }
+
+
+    cout << "*****************************************" <<endl;
+    cout << "Sum score of all students is " << sum << endl;
+    cout << "Average score of all students is " << sum/studentNum << endl;
+    return 0;
+
+}
+
+
+double promptInput(int studentNo) {
+    double score;
+    bool check;
+    do {
+        cout << "Please enter a score for student" << studentNo << " (0-150): ";
+        cin >> score;
+        if ((cin.good() == false) || (score < 0 || score > 150))
+        {
+            cout << "This is an invalid score. Try again";
+            cout << endl;
+            cin.clear();
+            cin.ignore(100000, '\n');
+            check = false;
+        } else {
+            check = true;
+        }
+    } while (!check);
+    return score;
+
+}
+
+char getLetterGrade(double percentScore) {
+    if (percentScore > 89.99) {
+        return  'A';
+    } else if (percentScore > 79.99) {
+        return  'B';
+    } else if (percentScore > 69.99) {
+        return  'C';
+    } else if (percentScore > 59.99) {
+        return  'D';
+    } else {
+        return  'F';
+    }
+
+
+}
+
+
+
